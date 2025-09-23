@@ -46,21 +46,30 @@ export default function VoidPage() {
     
     <div className="">
       <Navbar />
-      {/* About Description */}
-<div className="about_desc z-30">
-  <div className="about-club ">
-    <h1 className="about-club-h1 ">
-      Enter into the Cyber Arena with VOID
-    </h1>
-    <p className="text-sm text-white  max-w-[60ch] ">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-      nemo soluta totam commodi atque quod! Culpa quo consectetur quae
-      ipsam.
-    </p>
-        {/* glowing button */}
-       <GlowingButton />
-  </div>
-</div>
+      
+      {/* Hero Section with SVG Background for Mobile */}
+      <div className="hero-section">
+        {/* About Description */}
+        <div className="about_desc z-30">
+          <div className="about-club ">
+            <h1 className="about-club-h1 ">
+              Enter into the Cyber Arena with VOID
+            </h1>
+            <p className="text-sm text-white  max-w-[60ch] ">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+              nemo soluta totam commodi atque quod! Culpa quo consectetur quae
+              ipsam.
+            </p>
+                {/* glowing button */}
+               <GlowingButton />
+          </div>
+        </div>
+
+        {/* Kali SVG - Background on Mobile, Normal on Desktop */}
+        <div className="kali_svg_div">
+        <img src={kali} alt="kali" className="kali_svg" />
+        </div>
+      </div>
 
 
 
@@ -69,28 +78,49 @@ export default function VoidPage() {
   This div should have a blue background, white text, padding, margin, rounded corners, and a shadow if Tailwind is working correctly.
 </div> */}
 
-
-
-
-      {/* Kali SVG */}
-      <div className="kali_svg_div">
-      <img src={kali} alt="kali" className="kali_svg" />
+      {/* Mobile Features Section - Hidden on Desktop */}
+      <div className="mobile-features-section">
+        <div className="mobile-features-container">
+          <h2 className="mobile-features-title">Explore Cybersecurity</h2>
+          <div className="mobile-features-grid">
+            <div className="mobile-feature-card">
+              <div className="mobile-feature-icon">🛡️</div>
+              <h3>Ethical Hacking</h3>
+              <p>Learn penetration testing and vulnerability assessment</p>
+            </div>
+            <div className="mobile-feature-card">
+              <div className="mobile-feature-icon">🔐</div>
+              <h3>Security Tools</h3>
+              <p>Master industry-standard cybersecurity tools</p>
+            </div>
+            <div className="mobile-feature-card">
+              <div className="mobile-feature-icon">🌐</div>
+              <h3>Network Security</h3>
+              <p>Understand network protocols and security measures</p>
+            </div>
+            <div className="mobile-feature-card">
+              <div className="mobile-feature-icon">💻</div>
+              <h3>Digital Forensics</h3>
+              <p>Investigate and analyze digital evidence</p>
+            </div>
+          </div>
+        </div>
       </div>
-      {/* Spotlight */}
-      <div className="spotlight">
-        <img
-          className="spotlight-svg-top"
-          src="/assets/0f9e183a12bee7af6da9f9a175c71d3a.svg"
-          alt=""
-        />
-        <img
-          className="spotlight-svg-bottom"
-          src="/assets/e4c3a7bd600393b1420b0ffef056534d.svg"
-          alt=""
-        />
-        <div className="spotlight_chupao"></div>
-      </div>
 
+      {/* Mobile CTA Section */}
+      <div className="mobile-cta-section">
+        <div className="mobile-cta-container">
+          <h2 className="mobile-cta-title">Ready to Start Your Journey?</h2>
+          <p className="mobile-cta-description">
+            Join our community of cybersecurity enthusiasts and professionals. 
+            Learn, practice, and excel in the world of digital security.
+          </p>
+          <div className="mobile-cta-buttons">
+            <button className="mobile-cta-btn primary">Join Now</button>
+            <button className="mobile-cta-btn secondary">Learn More</button>
+          </div>
+        </div>
+      </div>
 
 {/* IRC Section */}
 <div className="irc-section">
