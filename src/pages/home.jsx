@@ -2,7 +2,7 @@ import React from "react";
 import kali from "./../assets/web.svg";
 import Navbar from "./../components/navbar";
 import Footer from "./../components/footer";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import breach from "./../assets/achievements/Breacheverse.jpg";
 import nullkiet from "./../assets/achievements/Null-Ghaziabad.jpg";
 import nullmeetup from "./../assets/achievements/Null-meetup.jpg";
@@ -32,15 +32,46 @@ function GlowingButton() {
   );
 }
 
-const AchievementCard = ({ title, description, imageUrl }) => (
-  <div className="achievement-card">
-    <img src={imageUrl} alt={title} className="achievement-image" />
-    <div className="achievement-content">
-      <h3 className="achievement-title">{title}</h3>
-      <p className="achievement-description">{description}</p>
+const AchievementCard = ({ title, description, imageUrl }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+  
+  const toggleShowMore = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  return (
+    <div className="achievement-card">
+      <img src={imageUrl} alt={title} className="achievement-image" />
+      <div className="achievement-content">
+        <h3 className="achievement-title">{title}</h3>
+        <p className={`achievement-description ${isMobile ? (isExpanded ? 'expanded' : 'truncated') : ''}`}>
+          {description}
+        </p>
+        {/* Only show more/less button on mobile phones */}
+        {isMobile && (
+          <button 
+            className="show-more-btn"
+            onClick={toggleShowMore}
+          >
+            {isExpanded ? 'Show less' : 'Show more'}
+          </button>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 export default function VoidPage() {
   return (
     
