@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import "./../index.css";
 import { Link } from "react-router-dom";
 import void_logo from "./../assets/Void Society logo.svg";
+import "./../index.css";
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <div className="navbar_about">
+    <nav className="navbar_about">
+      {/* Logo */}
       <img
         src={void_logo}
         alt="Logo"
@@ -29,7 +31,7 @@ export default function Navbar() {
         <Link to="/terminal" className="navbar_link">CLI</Link>
       </div>
 
-      {/* Hamburger button (mobile) */}
+      {/* Hamburger button (mobile only) */}
       <button
         aria-label="Toggle navigation menu"
         className={`navbar_toggle ${isMenuOpen ? "open" : ""}`}
@@ -40,21 +42,25 @@ export default function Navbar() {
         <span className="bar"></span>
       </button>
 
-      {/* Mobile menu */}
+      {/* Overlay */}
       {isMenuOpen && (
-        <div className="navbar_mobile_menu">
-          <div className="navbar_mobile_group">
-            <Link to="/" className="navbar_link" onClick={closeMenu}>Home</Link>
-            <Link to="/about-us" className="navbar_link" onClick={closeMenu}>About</Link>
-            <Link to="/contact-us" className="navbar_link" onClick={closeMenu}>Contact</Link>
-            <Link to="/blogs" className="navbar_link" onClick={closeMenu}>Blogs</Link>
-          </div>
-          <div className="navbar_mobile_group">
-            <Link to="/resources" className="navbar_link" onClick={closeMenu}>Resources</Link>
-            <Link to="/terminal" className="navbar_link" onClick={closeMenu}>CLI</Link>
-          </div>
-        </div>
+        <div
+          className="navbar_overlay"
+          onClick={closeMenu}
+        ></div>
       )}
-    </div>
+
+      {/* Mobile menu (slide-in) */}
+      <div className={`navbar_mobile_menu ${isMenuOpen ? "open" : ""}`}>
+        <div className="navbar_mobile_group">
+          <Link to="/" className="navbar_link" onClick={closeMenu}>Home</Link>
+          <Link to="/about-us" className="navbar_link" onClick={closeMenu}>About</Link>
+          <Link to="/contact-us" className="navbar_link" onClick={closeMenu}>Contact</Link>
+          <Link to="/blogs" className="navbar_link" onClick={closeMenu}>Blogs</Link>
+          <Link to="/resources" className="navbar_link" onClick={closeMenu}>Resources</Link>
+          <Link to="/terminal" className="navbar_link" onClick={closeMenu}>CLI</Link>
+        </div>
+      </div>
+    </nav>
   );
 }

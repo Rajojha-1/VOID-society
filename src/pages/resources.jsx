@@ -13,9 +13,9 @@ const Resources = () => {
       icon: Book,
       color: "text-blue-500",
       resources: [
-        { name: "Security Best Practices", type: "PDF", size: "2.4 MB" },
-        { name: "Incident Response Guide", type: "PDF", size: "1.8 MB" },
-        { name: "Network Security Manual", type: "PDF", size: "3.2 MB" },
+        { name: "Web Application Security Guide OWASP WSTG", description: "Learn how real testers find web bugs the checklist pros use.", link: "https://owasp.org/www-project-web-security-testing-guide" },
+        { name: "Beginner’s Guide to Network Scanning Nmap docs", description: "Discover what a network actually looks like map it dont break it.", link: "https://nmap.org" },
+        { name: "Packet Analysis Reference Wireshark", description: "See the packets your apps whisper learn to inspect traffic like a detective.", link: "https://www.wireshark.org/docs/" },
       ]
     },
     {
@@ -23,9 +23,9 @@ const Resources = () => {
       icon: Video,
       color: "text-cyan-400",
       resources: [
-        { name: "Penetration Testing Basics", type: "Video", duration: "45 min" },
-        { name: "Social Engineering Defense", type: "Video", duration: "32 min" },
-        { name: "Malware Analysis Workshop", type: "Video", duration: "1h 20min" },
+        { name: "SQL Injection and XSS Explained", description: "Hands on lab style video that makes web hacking readable safe lab huge fun.", link: "https://tryhackme.com/" },
+        { name: "Getting Started with Offensive Labs", description: "From zero to CTF watch how people crack a box and learn the mindset.", link: "https://www.youtube.com/watch?v=jccqNN1jOgE" },
+        { name: "Wireshark and Network Forensics", description: "Follow packet flows and find the needles in the network haystack.", link: "https://www.youtube.com/watch?v=qTaOZrDnMzQ" },
       ]
     },
     {
@@ -33,16 +33,16 @@ const Resources = () => {
       icon: Code,
       color: "text-green-400",
       resources: [
-        { name: "Security Audit Script", type: "Python", size: "15 KB" },
-        { name: "Log Analyzer Tool", type: "Shell", size: "8 KB" },
-        { name: "Vulnerability Scanner", type: "Python", size: "45 KB" },
+        { name: "Burp Suite Web proxy and pentest toolkit", description: "Break into a web app in a lab intercept requests modify traffic and find the bugs others miss.", link: "https://portswigger.net/burp" },
+        { name: "John the Ripper Password cracking suite", description: "Crack weak hashes learn password security weaknesses and level up your credential audit skills.", link: "https://github.com/openwall/john" },
+        { name: "Ghidra Reverse engineering framework", description: "Open binaries peel back compiled code and see how programs and malware actually work.", link: "https://github.com/NationalSecurityAgency/ghidra" },
       ]
     },
   ];
 
   const featuredResources = [
     {
-      title: "Cybersecurity Framework 2024",
+      title: "Web Application Security Guide OWASP WSTG",
       description: "Comprehensive guide covering the latest cybersecurity frameworks and standards",
       type: "eBook",
       featured: true,
@@ -141,17 +141,12 @@ const Resources = () => {
                         >
                           <div>
                             <p className="font-medium text-white">{resource.name}</p>
-                            <p className="text-sm text-gray-400">
-                              {resource.type} • {resource.size || resource.duration}
-                            </p>
+                            <p className="text-sm text-gray-400">{resource.description}</p>
                           </div>
                           <div className="flex space-x-2">
-                            <Button className="flex items-center justify-center px-2 py-1 rounded hover:bg-white/10">
+                            <a href={resource.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-2 py-1 rounded hover:bg-white/10">
                               <ExternalLink className="w-4 h-4" />
-                            </Button>
-                            <Button className="flex items-center justify-center px-2 py-1 rounded hover:bg-white/10">
-                              <Download className="w-4 h-4" />
-                            </Button>
+                            </a>
                           </div>
                         </div>
                       ))}
@@ -165,6 +160,11 @@ const Resources = () => {
             })}
           </div>
         </section>
+
+        {/* Ethics Line */}
+        <div className="text-center mt-16 border-t border-white/20 pt-8">
+          <p className="text-sm text-gray-500 max-w-3xl mx-auto"><strong>Ethics line:</strong> Everything we teach is for defensive educational purposes only. Only test systems you own or have permission to test.</p>
+        </div>
 
         {/* CTA Section */}
         <section className="mt-20 text-center">
