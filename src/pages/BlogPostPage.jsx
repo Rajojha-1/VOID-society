@@ -28,7 +28,15 @@ export default function BlogPostPage() {
             <header className="mb-8">
               <h1 className="text-4xl md:text-5xl font-bold text-white font-serif leading-tight mb-4">{title}</h1>
               <div className="flex items-center gap-4 text-gray-400">
-                <img className="w-10 h-10 rounded-full object-cover" src={authorAvatar} alt={author} />
+                {/* Letter Avatar */}
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold text-white ${
+                  authorAvatar === 'S' ? 'bg-blue-600' :
+                  authorAvatar === 'A' ? 'bg-green-600' :
+                  authorAvatar === 'P' ? 'bg-purple-600' :
+                  'bg-gray-600'
+                }`}>
+                  {authorAvatar}
+                </div>
                 <div>
                   <p className="font-semibold text-gray-200">{author}</p>
                   <p className="text-sm">{date}</p>

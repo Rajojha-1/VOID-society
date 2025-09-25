@@ -14,7 +14,7 @@ export default defineConfig({
     port: 5173, 
     // allow Cloudflare Tunnel host
     allowedHosts: [
-      'programmes-drops-facility-hostels.trycloudflare.com'
+      'permit-veteran-mysimon-played.trycloudflare.com '
     ],
   },
 });

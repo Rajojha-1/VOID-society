@@ -69,11 +69,11 @@ const Resources = () => {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-blue-400 to-cyan-400 bg-clip-text text-transparent">Resources</span> Hub
+          <h1 className="resources-hero-title">
+            Resources Hub
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Access our comprehensive collection of cybersecurity resources, tools, and documentation
+          <p className="resources-hero-subtitle">
+            Access our comprehensive collection of cybersecurity resources, tools, and documentation to enhance your security knowledge
           </p>
         </div>
 
@@ -178,7 +178,12 @@ const Resources = () => {
                 Request specific resources or contribute your own to help the community grow
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 text-black">Request Resource</Button>
+                <Button 
+                  className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 text-black"
+                  onClick={() => window.open("https://forms.gle/wKwhjGEu7fsNK2Ny5", "_blank")}
+                >
+                  Request Resource
+                </Button>
                 <Button className="px-4 py-2 rounded border border-white/40 hover:bg-white/10">Contribute</Button>
               </div>
             </CardContent>

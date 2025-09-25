@@ -9,7 +9,9 @@ function TerminalComponent() {
   const [historyIndex, setHistoryIndex] = useState(null);
   const [currentPath, setCurrentPath] = useState("/home/guest");
   const [user, setUser] = useState({ username: "guest" });
+  const [isMatrixMode, setIsMatrixMode] = useState(false);
   const terminalRef = useRef(null);
+  const matrixRef = useRef(null);
 
   useEffect(() => {
     // Set default user and initialize home directory
@@ -22,6 +24,74 @@ function TerminalComponent() {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
   }, [history]);
+
+  // Matrix effect functions
+  const startMatrix = () => {
+    if (!matrixRef.current) return;
+    
+    const canvas = matrixRef.current;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+    
+    // Initialize drops
+    for (let i = 0; i < columns; i++) {
+      drops[i] = 1;
+    }
+    
+    const draw = () => {
+      // Black background with fade effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Green text
+      ctx.fillStyle = '#00ff00';
+      ctx.font = fontSize + 'px monospace';
+      
+      for (let i = 0; i < drops.length; i++) {
+        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        // Reset drop to top randomly or when it reaches bottom
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    };
+    
+    const matrixInterval = setInterval(draw, 50);
+    
+    // Store interval for cleanup
+    canvas.matrixInterval = matrixInterval;
+  };
+  
+  const stopMatrix = () => {
+    setIsMatrixMode(false);
+    if (matrixRef.current && matrixRef.current.matrixInterval) {
+      clearInterval(matrixRef.current.matrixInterval);
+    }
+  };
+  
+  // Handle ESC key to exit matrix
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape' && isMatrixMode) {
+        stopMatrix();
+        setHistory(prev => [...prev, { prompt: getPrompt(), command: 'cmatrix', output: 'Matrix mode exited.' }]);
+      }
+    };
+    
+    if (isMatrixMode) {
+      window.addEventListener('keydown', handleKeyPress);
+      return () => window.removeEventListener('keydown', handleKeyPress);
+    }
+  }, [isMatrixMode]);
 
   const getPrompt = () => {
     if (!user) return "guest@kali:~$ ";
@@ -51,6 +121,7 @@ function TerminalComponent() {
   whoami             - Display current user
   date               - Display current date
   clear              - Clear terminal
+  cmatrix            - Matrix digital rain (press ESC to exit)
   exit               - Exit terminal`;
         break;
 
@@ -168,6 +239,14 @@ function TerminalComponent() {
         setHistory([]);
         return;
 
+      case "cmatrix":
+        setIsMatrixMode(true);
+        output = "Starting Matrix digital rain... Press ESC to exit";
+        setTimeout(() => {
+          startMatrix();
+        }, 1000);
+        break;
+
       case "exit":
         authService.logout();
         window.location.href = '/';
@@ -214,6 +293,17 @@ function TerminalComponent() {
 
   return (
     <div className="kali-terminal" ref={terminalRef}>
+      {/* Matrix overlay */}
+      {isMatrixMode && (
+        <div className="matrix-overlay">
+          <canvas ref={matrixRef} className="matrix-canvas" />
+          <div className="matrix-text">
+            <p>MATRIX MODE ACTIVATED</p>
+            <p>Press ESC to exit</p>
+          </div>
+        </div>
+      )}
+      
       <div className="terminal-header">
         <div className="terminal-controls">
           <span className="control close"></span>

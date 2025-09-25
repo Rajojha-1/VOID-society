@@ -149,10 +149,18 @@ export default function ContactUs() {
             </div>
             <div className="contact-method">
               <strong>Find Us</strong>
-              <p>123 Cyber Street, Tech City, 404</p>
-              <div className="map-placeholder">
-                {/* Placeholder for an embedded map */}
-                <p>Map Placeholder</p>
+              <p>KIET Groups of institutions, H-Block, COE Cybersecurity</p>
+              <div className="map-container">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d403.2578691707484!2d77.49752883465763!3d28.75315361001313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1758773394571!5m2!1sen!2sin" 
+                  width="100%" 
+                  height="200" 
+                  style={{border: 0, borderRadius: '8px'}} 
+                  allowFullScreen="" 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="KIET Groups of Institutions Location"
+                ></iframe>
               </div>
             </div>
             <div className="social-links">
@@ -184,8 +192,9 @@ export default function ContactUs() {
           <h2>Still have questions?</h2>
           <a href="mailto:contact@void.sec" className="join-us-button">Let's Connect</a>
         </section>
-              <Footer />
+
       </div>
+      <Footer />
     </>
   );
 }

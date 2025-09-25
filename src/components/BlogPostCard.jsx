@@ -10,7 +10,15 @@ export default function BlogPostCard({ post }) {
       {/* Content Section */}
       <div className="flex-1">
         <div className="flex items-center gap-3 mb-2">
-          <img className="w-6 h-6 rounded-full object-cover" src={authorAvatar} alt={author} />
+          {/* Letter Avatar */}
+          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white ${
+            authorAvatar === 'S' ? 'bg-blue-600' :
+            authorAvatar === 'A' ? 'bg-green-600' :
+            authorAvatar === 'P' ? 'bg-purple-600' :
+            'bg-gray-600'
+          }`}>
+            {authorAvatar}
+          </div>
           <span className="text-sm font-medium text-gray-200">{author}</span>
         </div>
         <Link to={`/blogs/${post.id}`} state={{ post }} className="block">

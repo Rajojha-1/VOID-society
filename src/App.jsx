@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop.jsx';
 import TerminalPage from './pages/terminal.jsx';
 import VoidPage from './pages/home.jsx';
 import Blogs from './pages/blogs.jsx';
@@ -11,6 +12,7 @@ import './App.css';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/terminal" element={<TerminalPage />} />
         <Route path="/" element={<VoidPage />} />

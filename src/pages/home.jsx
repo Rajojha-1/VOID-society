@@ -8,6 +8,10 @@ import nullkiet from "./../assets/achievements/Null-Ghaziabad.jpg";
 import nullmeetup from "./../assets/achievements/Null-meetup.jpg";
 import school from "./../assets/achievements/School.jpg"
 import LinuxBootcamp from "./../assets/achievements/LinuxBootcamp.jpg"
+import nullLogo from "./../assets/Null.png"; 
+import cyndiaLogo from "./../assets/cyndia.svg"; 
+import piratesLogo from "./../assets/Pirates.png"; 
+import alumni from "./../assets/Alumni.jpg"
 function GlowingButton() {
   const btnRef = useRef(null);
 
@@ -21,14 +25,76 @@ function GlowingButton() {
     btnRef.current.style.setProperty("--y", `${y}px`);
   };
 
+  const handleClick = () => {
+    // detect if user is on mobile
+    const isMobile = window.innerWidth <= 768;
+
+    let targetSection;
+
+    if (isMobile) {
+      // scroll to mobile features first
+      targetSection = document.querySelector(".irc-section");
+    } else {
+      // desktop fallback → IRC → Achievements → Kali SVG
+      targetSection =
+        document.querySelector(".irc-section") ||
+        document.querySelector(".achievements-section") ||
+        document.querySelector(".kali_svg_div");
+    }
+
+    if (targetSection) {
+      targetSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <button
       ref={btnRef}
       className="about-button mt-6 bg-blue-500 text-white px-4 py-2 rounded"
       onMouseMove={handleMouseMove}
+      onClick={handleClick}
     >
-      Get Started
+      {/* Desktop label */}
+      <span className="hidden md:inline">Get Started</span>
+      {/* Mobile label */}
+      <span className="md:hidden">Get started</span>
     </button>
+  );
+}
+
+function RegisterButton() {
+  const btnRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const rect = btnRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // update CSS variables dynamically
+    btnRef.current.style.setProperty("--x", `${x}px`);
+    btnRef.current.style.setProperty("--y", `${y}px`);
+  };
+
+  const handleClick = () => {
+    window.open("https://docs.google.com/forms/d/e/1FAIpQLSe86cyfm6FwQm6zbmmajG3uyNDA5jXY7UtJ56A_TFM6yOUGKg/viewform", "_blank");
+  };
+
+  return (
+    <div className="flex items-center justify-start gap-3 mt-4">
+      <button
+        ref={btnRef}
+        className="about-button bg-blue-500 text-white px-4 py-2 rounded"
+        onMouseMove={handleMouseMove}
+        onClick={handleClick}
+        style={{ margin: 0 }}
+      >
+        Register Now
+      </button>
+      <span className="text-white font-semibold text-base" style={{ lineHeight: '1', margin: 0 }}>Breachverse 3.0</span>
+    </div>
   );
 }
 
@@ -72,6 +138,22 @@ const AchievementCard = ({ title, description, imageUrl }) => {
     </div>
   );
 };
+
+const PartnerCard = ({ name, description, imageUrl, link, customClassName = '' }) => {
+  return (
+    <a href={link} target="_blank" rel="noopener noreferrer" className="partner-card-link">
+      <div className={`partner-card ${customClassName}`}>
+        <div className="partner-image-container">
+          <img src={imageUrl} alt={`${name} logo`} className="partner-image" />
+        </div>
+        <div className="partner-content">
+          <h3 className="partner-name">{name}</h3>
+          <p className="partner-description">{description}</p>
+        </div>
+      </div>
+    </a>
+  );
+};
 export default function VoidPage() {
   return (
     
@@ -91,8 +173,10 @@ export default function VoidPage() {
               nemo soluta totam commodi atque quod! Culpa quo consectetur quae
               ipsam.
             </p>
-                {/* glowing button */}
+                {/* glowing buttons */}
                <GlowingButton />
+               <br/>
+               <RegisterButton />
           </div>
         </div>
 
@@ -147,8 +231,10 @@ export default function VoidPage() {
             Learn, practice, and excel in the world of digital security.
           </p>
           <div className="mobile-cta-buttons">
-            <button className="mobile-cta-btn primary">Join Now</button>
-            <button className="mobile-cta-btn secondary">Learn More</button>
+            <button className="mobile-cta-btn primary">
+              🔒 Join Now
+            </button>
+            <button className="mobile-cta-btn secondary">Registrations Starting Soon</button>
           </div>
         </div>
       </div>
@@ -229,7 +315,7 @@ Adding to the significance of the meetup, the founders of Hackitise Labs were al
         </p>
         <div className="alumni-content">
           <div className="alumni-photo-container">
-            <img src="https://via.placeholder.com/800x500/1a1a1a/3b82f6?text=VOID+Alumni" alt="VOID Alumni Network" className="alumni-group-photo" />
+            <img src={alumni} alt="VOID Alumni Network" className="alumni-group-photo" />
           </div>
           <div className="alumni-text-container">
             <h3 className="alumni-subheading">Pioneering the Future of Cyber Defense</h3>
@@ -237,6 +323,33 @@ Adding to the significance of the meetup, the founders of Hackitise Labs were al
               Our alumni are a testament to the practical skills and deep knowledge gained at VOID. They have secured positions at top tech companies, cybersecurity firms, and government agencies, where they lead, innovate, and protect. They remain an active part of our community, mentoring current students and creating pathways for the next generation of cyber defenders.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Our Partners Section */}
+      <section className="partners-section">
+        <h2 className="section-title">Our Community partners</h2>
+        <p className="section-subtitle">Collaborating with the best to foster a thriving cybersecurity ecosystem.</p>
+        <div className="partners-grid">
+          <PartnerCard
+            name="Null Community"
+            description="India's largest open security community."
+            imageUrl={nullLogo}
+            link="https://null.community/"
+          />
+          <PartnerCard
+            name="Cyndia"
+            description="Your partner in cyber defense and intelligence."
+            imageUrl={cyndiaLogo}
+            customClassName="cyndia-card"
+            link="https://cyndia.in/"
+          />
+          <PartnerCard
+            name="0x0 Pirates"
+            description="A community for hackers, by hackers, focusing on practical cybersecurity skills."
+            imageUrl={piratesLogo}
+            link="https://www.0x0pirates.com/chapters/kiet"
+          />
         </div>
       </section>
       <Footer />

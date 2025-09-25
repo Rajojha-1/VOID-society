@@ -1,12 +1,18 @@
 import React from "react";
-// import logo from "./../assets/logo.svg"; 
+import logo from "./../assets/logo.png"; // Ensure you have a logo image in the specified path
 
 const Footer = () => {
   return (
     <footer className="site-footer">
+    
       <div className="footer-container">
+
+
         <div className="footer-about">
-          <p>
+          <div className="footer-logo h-2">
+            <img src={logo} alt="VOID Logo" className="footer-logo-img" />
+          </div>
+          <p className="footer-description">
             VOID is a premier cybersecurity club dedicated to fostering the next
             generation of security professionals through hands-on learning and
             community collaboration.
@@ -27,7 +33,7 @@ const Footer = () => {
         <div className="footer-contact">
           <h6>Contact Us</h6>
           <ul className="footer-links-list">
-            <li><a href="mailto:contact@voidclub.com">contact@voidclub.com</a></li>
+            <li><a href="mailto:voidsociety@kiet.edu">voidsociety@kiet.edu</a></li>
             <li><p>KIET Group of Institutions, Ghaziabad</p></li>
           </ul>
         </div>
@@ -35,7 +41,7 @@ const Footer = () => {
         <div className="footer-social">
           <h6>Follow Us</h6>
           <div className="social-icons">
-            <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon twitter">T</a>
+            <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon twitter">X</a>
             <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon linkedin">L</a>
             <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon instagram">I</a>
           </div>
