@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Navbar from '../components/navbar';
 import Footer from "./../components/footer";
 import './../index.css';
+import emailjs from "emailjs-com";
 
-// Simple Checkmark SVG for success animation
+// ✅ Simple Checkmark SVG for success animation
 const CheckmarkIcon = () => (
   <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
     <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
@@ -11,7 +12,7 @@ const CheckmarkIcon = () => (
   </svg>
 );
 
-// Accordion Item Component
+// ✅ Accordion Item Component
 const FaqItem = ({ question, answer, isOpen, onClick }) => (
   <div className="faq-item">
     <button className="faq-question" onClick={onClick}>
@@ -23,24 +24,21 @@ const FaqItem = ({ question, answer, isOpen, onClick }) => (
     </div>
   </div>
 );
+
 export default function ContactUs() {
-  // State for form fields
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  // State for form validation errors
   const [errors, setErrors] = useState({});
-  // State to track if form is submitted
   const [isSubmitted, setIsSubmitted] = useState(false);
-  // State to track which FAQ is open
   const [openFaq, setOpenFaq] = useState(null);
 
   const faqs = [
     {
-      question: 'How soon do we respond?',
-      answer: 'We typically respond to all inquiries within 24-48 hours. If your matter is urgent, please mention it in the message.',
+      question: 'Do we respond?',
+      answer: 'We typically do not but we would love to.',
     },
     {
       question: 'Can I apply for a role here?',
-      answer: 'Absolutely! We are always looking for talented individuals. Please head over to our careers page or send us your resume at careers@void.sec.',
+      answer: 'Absolutely! We are always looking for talented individuals. Please head over to our home page and apply there',
     },
     {
       question: 'Do you offer collaboration or partnership opportunities?',
@@ -65,16 +63,30 @@ export default function ContactUs() {
     return newErrors;
   };
 
+  // ✅ Updated handleSubmit with EmailJS
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      setErrors({});
-      setIsSubmitted(true);
-      // Here you would typically send the form data to a server
-      console.log('Form submitted:', formState);
+      emailjs.send(
+        "service_b0p3dvq",     // your Service ID
+        "template_0dcpbqk",    // your Template ID
+        {
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+        },
+        "6CZt7UM5XbvHCqDpF"    // your Public Key
+      )
+      .then(() => {
+        setIsSubmitted(true);
+      })
+      .catch((err) => {
+        console.error("Failed to send message:", err);
+        alert("Something went wrong. Try again later!");
+      });
     }
   };
 
@@ -92,18 +104,16 @@ export default function ContactUs() {
     <>
       <Navbar />
       <div className="contact-us-page">
-        {/* Animated Blobs */}
         <div className="blob blob1"></div>
         <div className="blob blob2"></div>
 
-        {/* Hero Section */}
         <section className="contact-hero">
           <h1 className="contact-hero-title">We’d Love to Hear From You</h1>
           <p className="contact-hero-subtitle">Whether you have a question, feedback, or just want to say hi, our team is ready to answer all your questions.</p>
         </section>
 
         <div className="contact-main-content">
-          {/* Contact Form */}
+          {/* ✅ Contact Form */}
           <div className="contact-form-card">
             {isSubmitted ? (
               <div className="form-success-state">
@@ -133,19 +143,19 @@ export default function ContactUs() {
             )}
           </div>
 
-          {/* Alternative Contact Methods */}
+          {/* ✅ Alternative Contact Methods */}
           <div className="alternative-contacts">
             <h3>Other Ways to Connect</h3>
             <div className="contact-method">
               <strong>Email Us</strong>
               <div className="email-wrapper">
-                <a href="mailto:contact@void.sec">contact@void.sec</a>
-                <button onClick={() => copyToClipboard('contact@void.sec')} className="copy-button">Copy</button>
+                <a href="mailto:voidsociety@kiet.edu">voidsociety@kiet.edu</a>
+                <button onClick={() => copyToClipboard('voidsociety@kiet.edu')} className="copy-button">Copy</button>
               </div>
             </div>
             <div className="contact-method">
               <strong>Call Us</strong>
-              <a href="tel:+1234567890">+1 (234) 567-890</a>
+              <a href="tel:+919520869485">+91 95208 69485</a>
             </div>
             <div className="contact-method">
               <strong>Find Us</strong>
@@ -164,14 +174,14 @@ export default function ContactUs() {
               </div>
             </div>
             <div className="social-links">
-              <a href="#" aria-label="GitHub" className="social-icon github">G</a>
-              <a href="#" aria-label="Twitter" className="social-icon twitter">T</a>
-              <a href="#" aria-label="LinkedIn" className="social-icon linkedin">L</a>
+              <a href="https://github.com/V-O-I-D-Society" target="_blank" rel="noopener noreferrer" className="social-icon Github">G</a>
+              <a href="https://www.linkedin.com/company/void-society/" target="_blank" rel="noopener noreferrer" className="social-icon linkedin">L</a>
+              <a href="https://www.instagram.com/kiet_voidsociety?igsh=YXZzcGwzOWRvOXZl" target="_blank" rel="noopener noreferrer" className="social-icon instagram">I</a>
             </div>
           </div>
         </div>
 
-        {/* FAQ Section */}
+        {/* ✅ FAQ Section */}
         <section className="faq-section">
           <h2 className="section-title">Frequently Asked Questions</h2>
           <div className="faq-accordion">
@@ -187,12 +197,11 @@ export default function ContactUs() {
           </div>
         </section>
 
-        {/* Final CTA */}
+        {/* ✅ Final CTA */}
         <section className="final-cta">
           <h2>Still have questions?</h2>
-          <a href="mailto:contact@void.sec" className="join-us-button">Let's Connect</a>
+          <a href="mailto:voidsociety@kiet.edu" className="join-us-button">Let's Connect</a>
         </section>
-
       </div>
       <Footer />
     </>

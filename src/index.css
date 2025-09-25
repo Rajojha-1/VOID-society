@@ -151,6 +151,47 @@ img {
   width: 100%;
   min-height: 100vh; /* Full viewport height on mobile like desktop */
   overflow: hidden;
+  background: #000;
+}
+
+/* Dot Spotlight Effect */
+.dot-spotlight-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Don't block interactions with content above */
+  overflow: hidden;
+}
+
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  transition: all 0.15s ease;
+  pointer-events: none;
+  will-change: background-color, box-shadow; /* Optimize for animations */
+}
+
+/* Hero interaction layer - invisible overlay for better mouse tracking */
+.hero-interaction-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50; /* High z-index but still allows interactions with content */
+  pointer-events: none; /* Don't block clicks on buttons/links */
+}
+
+/* Mobile touch optimization */
+@media (max-width: 768px) {
+  .dot {
+    transition: all 0.2s ease; /* Slightly slower transitions on mobile */
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -859,23 +900,64 @@ img {
   font-weight: 400;
 }
 
+/* Core Members Names Only */
+.core-members-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+  max-width: 100%;
+}
+
+.core-member-name-only {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.core-member-name-only:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.member-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.member-role {
+  font-size: 0.85rem;
+  color: #3b82f6;
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
-  .core-member-simple {
-    flex: 0 0 120px;
-    padding: 8px;
+  .core-members-names {
+    gap: 10px;
   }
   
-  .core-member-image {
-    width: 50px;
-    height: 50px;
+  .core-member-name-only {
+    min-width: 130px;
+    padding: 8px 12px;
   }
   
-  .core-member-name {
-    font-size: 0.85rem;
+  .member-name {
+    font-size: 0.9rem;
   }
   
-  .core-member-role {
-    font-size: 0.75rem;
+  .member-role {
+    font-size: 0.8rem;
   }
 }
 
@@ -904,6 +986,31 @@ img {
   transform: scale(1.05);
 }
 
+/* Locked Join Us state */
+.join-us-locked {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 35px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  cursor: not-allowed;
+}
+
+.lock-icon {
+  font-size: 1.5rem;
+}
+
+.join-us-locked-text {
+  color: #a0a0a0;
+  font-weight: 500;
+}
+.Breach{
+  font-size: 20px;
+
+}
 /* Scroll Animations */
 .fade-in, .fade-in-up {
   opacity: 0;
@@ -1952,6 +2059,65 @@ img {
   100% { 
     text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
     opacity: 1;
+  }
+}
+
+/* Aquarium Effect Styles */
+.aquarium-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #001122 0%, #002244 50%, #001122 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aquarium-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.aquarium-text {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #40E0D0;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px #40E0D0;
+  z-index: 10000;
+  animation: aquariumGlow 3s infinite alternate;
+  background: rgba(0, 17, 34, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #40E0D0;
+}
+
+.aquarium-text p {
+  margin: 5px 0;
+  letter-spacing: 1px;
+}
+
+@keyframes aquariumGlow {
+  0% { 
+    text-shadow: 0 0 5px #40E0D0, 0 0 10px #40E0D0, 0 0 15px #40E0D0;
+    border-color: #40E0D0;
+    box-shadow: 0 0 20px rgba(64, 224, 208, 0.3);
+  }
+  100% { 
+    text-shadow: 0 0 10px #40E0D0, 0 0 20px #40E0D0, 0 0 30px #40E0D0;
+    border-color: #87CEEB;
+    box-shadow: 0 0 30px rgba(64, 224, 208, 0.6);
   }
 }
 

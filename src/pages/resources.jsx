@@ -77,7 +77,8 @@ const Resources = () => {
           </p>
         </div>
 
-        {/* Featured Resources */}
+      {/* Featured Resources */}
+{/* 
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-center">
             <span className="bg-gradient-to-r from-white via-blue-400 to-cyan-400 bg-clip-text text-transparent">Featured</span> Resources
@@ -112,8 +113,9 @@ const Resources = () => {
               </Card>
             ))}
           </div>
-        </section>
 
+        </section>
+           */}
         {/* Resource Categories */}
         <section>
           <h2 className="text-3xl font-bold mb-8 text-center">

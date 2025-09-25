@@ -12,6 +12,111 @@ import nullLogo from "./../assets/Null.png";
 import cyndiaLogo from "./../assets/cyndia.svg"; 
 import piratesLogo from "./../assets/Pirates.png"; 
 import alumni from "./../assets/Alumni.jpg"
+import rnb from "./../assets/achievements/RednBlue.png"
+import Secure from "./../assets/achievements/CyberSecure.png"
+// Dot Spotlight Component
+function DotSpotlight() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [screenSize, setScreenSize] = useState({ width: 1200, height: 800 });
+  const containerRef = useRef(null);
+
+  // Update screen size on mount and resize
+  useEffect(() => {
+    const updateScreenSize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+
+    updateScreenSize();
+    window.addEventListener('resize', updateScreenSize);
+    return () => window.removeEventListener('resize', updateScreenSize);
+  }, []);
+
+  // Listen for mouse/touch events on the entire hero section
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const heroSection = document.querySelector('.hero-section');
+      if (heroSection) {
+        const rect = heroSection.getBoundingClientRect();
+        setMousePos({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        });
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      const heroSection = document.querySelector('.hero-section');
+      if (heroSection && e.touches[0]) {
+        const rect = heroSection.getBoundingClientRect();
+        setMousePos({
+          x: e.touches[0].clientX - rect.left,
+          y: e.touches[0].clientY - rect.top
+        });
+      }
+    };
+
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
+      heroSection.addEventListener('mousemove', handleMouseMove);
+      heroSection.addEventListener('touchmove', handleTouchMove);
+      heroSection.addEventListener('touchstart', handleTouchMove);
+      
+      return () => {
+        heroSection.removeEventListener('mousemove', handleMouseMove);
+        heroSection.removeEventListener('touchmove', handleTouchMove);
+        heroSection.removeEventListener('touchstart', handleTouchMove);
+      };
+    }
+  }, []);
+
+  // Generate dot grid based on actual screen size
+  const generateDots = () => {
+    const dots = [];
+    const dotSize = 2;
+    const spacing = 25;
+    const cols = Math.ceil(screenSize.width / spacing) + 2; // +2 for buffer
+    const rows = Math.ceil(screenSize.height / spacing) + 2; // +2 for buffer
+
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const x = i * spacing;
+        const y = j * spacing;
+        const distance = Math.sqrt(Math.pow(x - mousePos.x, 2) + Math.pow(y - mousePos.y, 2));
+        const maxDistance = 120; // spotlight radius
+        const opacity = Math.max(0, 1 - distance / maxDistance);
+        
+        dots.push(
+          <div
+            key={`${i}-${j}`}
+            className="dot"
+            style={{
+              left: x,
+              top: y,
+              backgroundColor: opacity > 0.1 ? `rgba(59, 130, 246, ${opacity * 0.8})` : 'rgba(255, 255, 255, 0.15)',
+              width: dotSize,
+              height: dotSize,
+              boxShadow: opacity > 0.3 ? `0 0 ${opacity * 10}px rgba(59, 130, 246, ${opacity * 0.5})` : 'none',
+            }}
+          />
+        );
+      }
+    }
+    return dots;
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className="dot-spotlight-container"
+    >
+      {generateDots()}
+    </div>
+  );
+}
+
 function GlowingButton() {
   const btnRef = useRef(null);
 
@@ -93,7 +198,7 @@ function RegisterButton() {
       >
         Register Now
       </button>
-      <span className="text-white font-semibold text-base" style={{ lineHeight: '1', margin: 0 }}>Breachverse 3.0</span>
+      <span className="text-white font-semibold text-base Breach" style={{ lineHeight: '1', margin: 0 }}>- Breachverse 3.0</span>
     </div>
   );
 }
@@ -162,6 +267,12 @@ export default function VoidPage() {
       
       {/* Hero Section with SVG Background for Mobile */}
       <div className="hero-section">
+        {/* Dot Spotlight Background */}
+        <DotSpotlight />
+        
+        {/* Invisible overlay for mouse tracking */}
+        <div className="hero-interaction-layer"></div>
+        
         {/* About Description */}
         <div className="about_desc z-30">
           <div className="about-club ">
@@ -169,9 +280,7 @@ export default function VoidPage() {
               Enter into the Cyber Arena with VOID
             </h1>
             <p className="text-sm text-white  max-w-[60ch] ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              nemo soluta totam commodi atque quod! Culpa quo consectetur quae
-              ipsam.
+              Only Cybersecurity and ethical hacking club of KIET Group of Institutions.
             </p>
                 {/* glowing buttons */}
                <GlowingButton />
@@ -269,6 +378,11 @@ export default function VoidPage() {
         <p className="section-subtitle">Recognized for excellence and innovation in cybersecurity solutions.</p>
         <div className="achievements-grid">
           <AchievementCard
+            title="RED N BLUE — Grand Finale of CyberSecureX1.0"
+            description="The VOID Society, under the guidance of the CSE Department at KIET Group of Institutions, hosted RED N BLUE, a 24-hour offline CTF where the top 10 teams from online qualifiers battled in a real-world cyber range with live servers and firewalls. Inspired by a Resident Evil–themed storyline, Red Teams hacked into Umbrella Corp’s systems to stop a nuclear threat while Blue Teams defended critical networks against intrusions. With nonstop action, teamwork, and incident response, this became one of India’s first large-scale offline CTFs — an immersive cyber experience that tested skill, strategy, and resilience."
+            imageUrl={rnb}
+          />
+          <AchievementCard
             title="Null – Ghaziabad Chapter at KIET"
             description=" Null is India’s largest open security community, and we are proud to operate its Ghaziabad Chapter in collaboration with our Centre of Excellence (COE). The chapter serves as a vibrant platform that connects students, faculty, and industry professionals through regular meetups and interactive sessions. These gatherings focus on the latest cybersecurity trends, real-world case studies, and occasionally even discussions on recently discovered CVEs, ensuring participants stay updated with industry practices.
 The initiative has created a valuable bridge between academia and industry, opening doors for internships and job opportunities for our students while fostering collaboration across the cybersecurity community. With its strong emphasis on knowledge-sharing and networking, the chapter has quickly become a hub for aspiring and experienced professionals alike.
@@ -297,7 +411,7 @@ Adding to the significance of the meetup, the founders of Hackitise Labs were al
           <AchievementCard
             title="Ethical Hacking Bootcamp – June 2025"
             description="As part of the CyberSecureX event organized by the CSE Department, our Centre of Excellence successfully conducted an Ethical Hacking Bootcamp in June 2025. What made this initiative unique was that it was entirely managed by students, showcasing their organizational and technical capabilities. The bootcamp received an overwhelming response with 100+ paid registrations, making it one of our most impactful training events. Participants gained practical exposure to real-world hacking techniques, security tools, and hands-on demonstrations, strengthening their understanding of modern cybersecurity practices. This achievement reflects both the enthusiasm of our students and the growing demand for structured cybersecurity learning opportunities."
-            imageUrl="https://via.placeholder.com/400x250/1a1a1a/ffffff?text=Bug+Bounty"
+            imageUrl={Secure}
           />
           <AchievementCard
             title="Awareness Campaign – 5 Schools"

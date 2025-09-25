@@ -41,9 +41,9 @@ const Footer = () => {
         <div className="footer-social">
           <h6>Follow Us</h6>
           <div className="social-icons">
-            <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon twitter">X</a>
-            <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon linkedin">L</a>
-            <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon instagram">I</a>
+            <a href="https://github.com/V-O-I-D-Society" target="_blank" rel="noopener noreferrer" className="social-icon Github">G</a>
+            <a href="https://www.linkedin.com/company/void-society/" target="_blank" rel="noopener noreferrer" className="social-icon linkedin">L</a>
+            <a href="https://www.instagram.com/kiet_voidsociety?igsh=YXZzcGwzOWRvOXZl" target="_blank" rel="noopener noreferrer" className="social-icon instagram">I</a>
           </div>
         </div>
       </div>

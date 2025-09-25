@@ -4,6 +4,22 @@ import './../index.css';
 import Footer from "./../components/footer";
 import { Link } from 'react-router-dom';
 import Suryansh from './../assets/Members/Suryansh.png'
+import Kanishka from './../assets/Members/Kanishka.png'
+import Ambar from './../assets/Members/Ambar.png'
+import Raj from './../assets/Members/Raj.jpg'
+import Keshav from './../assets/Members/Keshav.png'
+import Aditya from './../assets/Members/Tyagi.png'
+import Vanisha from './../assets/Members/Vanisha.png'
+import Parkhi from './../assets/Members/Parkhi.png'
+import Divya from './../assets/Members/Divya.jpg'
+import Vansh from './../assets/Members/Vansh.jpg'
+import Krishna from './../assets/Members/Krishna.png'
+// import Subham from './../assets/Members/Subham.png'
+import nikhil from './../assets/Members/Nikhil.jpg'
+import yuvraj from './../assets/Members/Yuvraj.png'
+import asna from './../assets/Members/Asna.png'
+import vishal from './../assets/Members/Vishal.png'
+// import arpit from './../assets/Members/arpit.png'
 // Custom Hook for observing elements and adding a 'visible' class
 const useAnimateOnScroll = (options) => {
   const ref = useRef(null);
@@ -71,18 +87,26 @@ export default function AboutUs() {
   const founder = { name: 'Suryansh Deshwal', role: 'Founder & Lead', imageUrl: Suryansh };
 
   const teamMembers = [
-    { name: 'Ambar Chakravartty', role: 'President', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Kanishka', role: 'President', imageUrl: 'https://via.placeholder.com/150' },
+    { name: 'Ambar Chakravartty', role: 'President', imageUrl: Ambar },
+    { name: 'Kanishka', role: 'President', imageUrl: Kanishka },
   ];
   const coreMembers = [
-    { name: 'Arjun Sharma', role: 'Vice President', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Priya Singh', role: 'Secretary', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Rahul Verma', role: 'Technical Lead', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Sneha Patel', role: 'Event Coordinator', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Vikash Kumar', role: 'Research Head', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Ananya Gupta', role: 'Marketing Lead', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Rohit Mehta', role: 'Security Analyst', imageUrl: 'https://via.placeholder.com/150' },
-    { name: 'Kavya Reddy', role: 'Network Specialist', imageUrl: 'https://via.placeholder.com/150' },
+    { name: 'Raj Ojha', imageUrl: Raj },
+    { name: 'Keshav Agarwal', imageUrl: Keshav },
+    { name: 'Aditya Tyagi', imageUrl: Aditya },
+    { name: 'Parkhi Sharma', imageUrl: Parkhi },
+    { name: 'Krishna Kumar', imageUrl: Krishna },
+    { name: 'Yuvraj Patel', imageUrl: yuvraj },
+    { name: 'Asna Ali', imageUrl: asna },
+    { name: 'Nikhil Kumar', imageUrl: nikhil },
+    { name: 'Vishal Prajapati', imageUrl: vishal },
+    { name: 'Vansh Agarwal', imageUrl: Vansh },
+    { name: 'Divya Pal', imageUrl: Divya },
+    { name: 'Vanisha', imageUrl: Vanisha },
+
+
+
+
   ];
 
   return (
@@ -127,26 +151,24 @@ export default function AboutUs() {
               <TeamMemberCard key={index} {...member} />
             ))}
           </div>
+
+          {/* Core Members with Photos */}
           <h2 ref={teamHeaderRef} className="section-title fade-in-up">Meet The Team</h2>
 
-          {/* Core Members */}
-          <div className="core-members-container">
-            <div className="core-members-scroll">
-              {coreMembers.map((member, index) => (
-                <div key={index} className="core-member-simple">
-                  <img src={member.imageUrl} alt={member.name} className="core-member-image" />
-                  <h4 className="core-member-name">{member.name}</h4>
-                  <p className="core-member-role">{member.role}</p>
-                </div>
-              ))}
-            </div>
+          <div className="team-grid">
+            {coreMembers.map((member, index) => (
+              <TeamMemberCard key={index} {...member} />
+            ))}
           </div>
         </section>
 
         <section ref={joinRef} className="about-join-us fade-in">
           <h2 className="section-title">Ready to Enter the Void?</h2>
           <p className="section-content">Become part of a community that challenges the status quo.</p>
-          <Link to="/contact-us" className="join-us-button">Join Us</Link>
+          <div className="join-us-locked">
+            <span className="lock-icon">🔒</span>
+            <p className="join-us-locked-text">Registrations are opening soon</p>
+          </div>
         </section>
       </div>
       <Footer />
