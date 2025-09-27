@@ -103,10 +103,6 @@ export default function AboutUs() {
     { name: 'Vansh Agarwal', imageUrl: Vansh },
     { name: 'Divya Pal', imageUrl: Divya },
     { name: 'Vanisha Agrawal', imageUrl: Vanisha },
-
-
-
-
   ];
 
   return (
